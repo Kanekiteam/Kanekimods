@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -17,14 +15,17 @@ body {
     margin: 0;
     text-align: center;
     overflow: hidden;
-    position: relative;
 }
 
 /* Contenedor principal */
 .container {
-    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
     max-width: 800px;
-    padding: 20px;
 }
 
 /* Título con efecto glitch */
@@ -125,74 +126,3 @@ body {
         width: 55%;
     }
 }
-
-/* Fondo con formas animadas */
-.game-shapes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.shape {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0.3);
-    animation: moverForma 5s infinite ease-in-out;
-}
-
-.shape.triangle {
-    width: 0;
-    height: 0;
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    border-bottom: 50px solid rgba(255, 255, 255, 0.3);
-}
-
-.shape.square {
-    background-color: rgba(0, 255, 255, 0.5);
-}
-
-.shape.circle {
-    border-radius: 50%;
-    background-color: rgba(255, 0, 255, 0.5);
-}
-
-@keyframes moverForma {
-    0% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-        transform: translate(100px, 100px) rotate(90deg);
-    }
-    50% {
-        transform: translate(200px, 0) rotate(180deg);
-    }
-    75% {
-        transform: translate(100px, -100px) rotate(270deg);
-    }
-    100% {
-        transform: translate(0, 0) rotate(360deg);
-    }
-}
-
-/* Efecto hover sobre las formas */
-@keyframes backGlow {
-    0% {
-        background-color: rgba(255, 255, 255, 0.3);
-    }
-    50% {
-        background-color: rgba(0, 255, 255, 0.5);
-    }
-    100% {
-        background-color: rgba(255, 0, 255, 0.5);
-    }
-}
-
-.game-shapes .shape:hover {
-    animation: backGlow 1s infinite alternate;
-    }
