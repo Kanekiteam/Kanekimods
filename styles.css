@@ -1,112 +1,120 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     background: radial-gradient(circle, #000428, #004e92);
     color: #ffffff;
     font-family: 'Orbitron', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
     text-align: center;
     overflow: hidden;
 }
 
-.navbar {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-    border-bottom: 3px solid;
-    border-image-source: linear-gradient(90deg, #ff00ff, #00ffff);
-    border-image-slice: 1;
-    animation: neonGlow 3s infinite alternate;
-}
-
-@keyframes neonGlow {
-    0% { border-image-source: linear-gradient(90deg, #ff00ff, #00ffff); }
-    50% { border-image-source: linear-gradient(90deg, #00ffff, #ff00ff); }
-    100% { border-image-source: linear-gradient(90deg, #ff00ff, #00ffff); }
-}
-
-.logo {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links li {
-    display: inline;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.2em;
-    padding: 8px 16px;
-    transition: 0.3s;
-    border-radius: 5px;
-}
-
-.nav-links a:hover {
-    background: linear-gradient(90deg, #ff00ff, #00ffff);
-    color: black;
-    box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff;
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        padding-top: 10px;
-    }
-}
-
+/* Contenedor principal */
 .container {
-    margin-top: 100px;
-    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
 }
 
-.neon-border {
-    width: 60%;
-    height: 3px;
-    background: linear-gradient(90deg, #ff00ff, #00ffff);
-    box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
-    margin: 20px auto;
-    animation: moveNeon 3s linear infinite;
-}
-
-@keyframes moveNeon {
-    0% { background-position: 0%; }
-    100% { background-position: 100%; }
-}
-
+/* Título con efecto glitch */
 .glitch {
     font-size: 3em;
     font-weight: bold;
     animation: glitch 1.5s infinite alternate;
 }
 
+/* Animación glitch */
 @keyframes glitch {
     0% { text-shadow: 2px 2px 5px #ff00ff, -2px -2px 5px #00ffff; }
     100% { text-shadow: -2px -2px 5px #ff00ff, 2px 2px 5px #00ffff; }
 }
+
+/* Texto de "Próximamente..." */
+.coming-soon {
+    font-size: 2em;
+    opacity: 0;
+    transform: translateY(100px);
+    animation: fadeInUp 2s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(100px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Borde de neón */
+.neon-border {
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+    margin: 20px auto;
+}
+
+/* Astronauta animado */
+.astronaut {
+    width: 150px;
+    bottom: 10%;
+    right: 10%;
+    position: absolute;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+/* Texto de información del dispositivo */
+.device-info {
+    font-size: 1em;
+    margin-top: 10px;
+    opacity: 0.7;
+}
+
+/* 📱 Responsivo para móviles */
+@media (max-width: 600px) {
+    .glitch {
+        font-size: 2em;
+    }
+
+    .coming-soon {
+        font-size: 1.5em;
+    }
+
+    .astronaut {
+        width: 100px;
+        bottom: 5%;
+        right: 5%;
+    }
+
+    .neon-border {
+        width: 50%;
+    }
+}
+
+/* 📟 Responsivo para tablets */
+@media (max-width: 900px) {
+    .glitch {
+        font-size: 2.5em;
+    }
+
+    .coming-soon {
+        font-size: 1.8em;
+    }
+
+    .astronaut {
+        width: 120px;
+        bottom: 8%;
+        right: 8%;
+    }
+
+    .neon-border {
+        width: 55%;
+    }
+    }
