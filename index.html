@@ -1,152 +1,136 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>KN UNLOCK</title>
-  <style>
-    body {
-      background: #0f0f0f;
-      color: #f0f0f0;
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5rem;
-      color: #00ffff;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      margin-bottom: 30px;
-    }
-    #selector {
-      background: #1a1a1a;
-      border: 2px solid #00ffff;
-      border-radius: 10px;
-      padding: 10px;
-      margin: 10px;
-      font-size: 1rem;
-      width: 80%;
-      color: #00ffff;
-    }
-    button {
-      background: linear-gradient(90deg, #00ffff, #ff00ff);
-      border: none;
-      padding: 12px 25px;
-      font-size: 1rem;
-      color: #000;
-      font-weight: bold;
-      border-radius: 30px;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: linear-gradient(90deg, #ff00ff, #00ffff);
-    }
-    #loader {
-      margin-top: 20px;
-      display: none;
-    }
-    .loader-bar {
-      width: 80%;
-      height: 10px;
-      background: #333;
-      margin: 10px auto;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    .loader-bar-fill {
-      width: 0;
-      height: 100%;
-      background: linear-gradient(90deg, #00ffff, #ff00ff);
-      animation: load 2s linear forwards;
-    }
-    @keyframes load {
-      0% { width: 0; }
-      100% { width: 100%; }
-    }
-    #output {
-      margin-top: 20px;
-      background: #1a1a1a;
-      border: 2px solid #00ffff;
-      border-radius: 10px;
-      padding: 20px;
-      width: 90%;
-      height: 300px;
-      overflow: auto;
-      white-space: pre-wrap;
-      text-align: left;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KN UNLOCK</title>
+    <style>
+        body {
+            background-color: #2c2c2c;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .header {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #00ff00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.8);
+        }
+
+        .select-app {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #00ff00;
+            color: #fff;
+            width: 80%;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        .select-app:hover {
+            background-color: #444;
+        }
+
+        .processing-container {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .processing-bar {
+            width: 100%;
+            background-color: #444;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress {
+            height: 10px;
+            background-color: #00ff00;
+            width: 0;
+            transition: width 1s;
+        }
+
+        .response-box {
+            background-color: #444;
+            color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
 
-  <h1>KN UNLOCK</h1>
+    <div class="header">KN UNLOCK</div>
 
-  <select id="selector">
-    <option value="nova">Nova VPN</option>
-  </select><br>
+    <select id="appSelect" class="select-app">
+        <option value="nova_vpn">Nova VPN</option>
+        <option value="other_app">Otra App</option>
+    </select>
 
-  <button onclick="procesarArchivo()">Procesar</button>
+    <button onclick="startProcessing()" style="background-color: #00ff00; padding: 15px; color: #fff; border: none; border-radius: 8px; font-size: 1.2em;">Procesar</button>
 
-  <div id="loader">
-    <p>Procesando...</p>
-    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-  </div>
+    <div class="processing-container" id="processingContainer">
+        <p>Procesando...</p>
+        <div class="processing-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
 
-  <pre id="output"></pre>
+    <div class="response-box" id="responseBox">
+        <h3>Contenido del archivo:</h3>
+        <pre id="fileContent"></pre>
+    </div>
 
-  <script>
-    function obtenerLink(app) {
-      switch(app) {
-        case 'nova':
-          return 'https://painelconecta5g.com/update/pasta_vpnbrasil9/config';
-        default:
-          return '';
-      }
-    }
+    <script>
+        function startProcessing() {
+            document.getElementById("processingContainer").style.display = "block";
+            document.getElementById("progress").style.width = "100%";
 
-    function procesarArchivo() {
-      const selector = document.getElementById('selector').value;
-      const url = obtenerLink(selector);
-      const loader = document.getElementById('loader');
-      const output = document.getElementById('output');
+            // Simulación de un tiempo de procesamiento
+            setTimeout(function() {
+                fetchFileContent();
+            }, 2000); // Simula un tiempo de espera antes de cargar el archivo
+        }
 
-      if (!url) {
-        alert('Error: No hay URL configurada para esta app.');
-        return;
-      }
+        function fetchFileContent() {
+            const app = document.getElementById("appSelect").value;
+            let fileUrl = '';
 
-      loader.style.display = 'block';
-      output.textContent = '';
+            if (app === 'nova_vpn') {
+                fileUrl = 'https://painelconecta5g.com/update/pasta_vpnbrasil9/config'; // URL del archivo
+            }
 
-      const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
-
-      fetch(proxyUrl)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Error al descargar el archivo.');
-          }
-          return response.json();
-        })
-        .then(data => {
-          loader.style.display = 'none';
-          let contents = data.contents;
-
-          if (contents.startsWith('data:application/octet-stream;base64,')) {
-            const base64data = contents.split(',')[1];
-            const decoded = atob(base64data);
-            output.textContent = decoded;
-          } else {
-            output.textContent = contents;
-          }
-        })
-        .catch(error => {
-          loader.style.display = 'none';
-          output.textContent = 'Ocurrió un error: ' + error.message;
-        });
-    }
-  </script>
+            fetch(fileUrl)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("processingContainer").style.display = "none";
+                    document.getElementById("responseBox").style.display = "block";
+                    document.getElementById("fileContent").textContent = data;
+                })
+                .catch(error => {
+                    document.getElementById("processingContainer").style.display = "none";
+                    document.getElementById("responseBox").style.display = "block";
+                    document.getElementById("fileContent").textContent = "Ocurrió un error al cargar el archivo.";
+                });
+        }
+    </script>
 
 </body>
 </html>
