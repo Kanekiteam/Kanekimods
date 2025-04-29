@@ -1,18 +1,152 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KANEKI_Mods® - Próximamente</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>KN UNLOCK</title>
+  <style>
+    body {
+      background: #0f0f0f;
+      color: #f0f0f0;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      margin-bottom: 30px;
+    }
+    #selector {
+      background: #1a1a1a;
+      border: 2px solid #00ffff;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px;
+      font-size: 1rem;
+      width: 80%;
+      color: #00ffff;
+    }
+    button {
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      color: #000;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #ff00ff, #00ffff);
+    }
+    #loader {
+      margin-top: 20px;
+      display: none;
+    }
+    .loader-bar {
+      width: 80%;
+      height: 10px;
+      background: #333;
+      margin: 10px auto;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .loader-bar-fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      animation: load 2s linear forwards;
+    }
+    @keyframes load {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+    #output {
+      margin-top: 20px;
+      background: #1a1a1a;
+      border: 2px solid #00ffff;
+      border-radius: 10px;
+      padding: 20px;
+      width: 90%;
+      height: 300px;
+      overflow: auto;
+      white-space: pre-wrap;
+      text-align: left;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="glitch">KANEKI MODS®</h1>
-        <p class="coming-soon">Próximamente...</p>
-        <div class="neon-border"></div>
-        <p class="device-info"></p>
-    </div>
-    <script src="script.js"></script>
+
+  <h1>KN UNLOCK</h1>
+
+  <select id="selector">
+    <option value="nova">Nova VPN</option>
+  </select><br>
+
+  <button onclick="procesarArchivo()">Procesar</button>
+
+  <div id="loader">
+    <p>Procesando...</p>
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  </div>
+
+  <pre id="output"></pre>
+
+  <script>
+    function obtenerLink(app) {
+      switch(app) {
+        case 'nova':
+          return 'https://painelconecta5g.com/update/pasta_vpnbrasil9/config';
+        default:
+          return '';
+      }
+    }
+
+    function procesarArchivo() {
+      const selector = document.getElementById('selector').value;
+      const url = obtenerLink(selector);
+      const loader = document.getElementById('loader');
+      const output = document.getElementById('output');
+
+      if (!url) {
+        alert('Error: No hay URL configurada para esta app.');
+        return;
+      }
+
+      loader.style.display = 'block';
+      output.textContent = '';
+
+      const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
+
+      fetch(proxyUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error al descargar el archivo.');
+          }
+          return response.json();
+        })
+        .then(data => {
+          loader.style.display = 'none';
+          let contents = data.contents;
+
+          if (contents.startsWith('data:application/octet-stream;base64,')) {
+            const base64data = contents.split(',')[1];
+            const decoded = atob(base64data);
+            output.textContent = decoded;
+          } else {
+            output.textContent = contents;
+          }
+        })
+        .catch(error => {
+          loader.style.display = 'none';
+          output.textContent = 'Ocurrió un error: ' + error.message;
+        });
+    }
+  </script>
+
 </body>
 </html>
