@@ -1,165 +1,148 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KN UNLOCK</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dami Store - Streaming</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
-      background: #0f0f0f;
-      color: #f0f0f0;
-      font-family: 'Poppins', sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f9fa;
+    }
+
+    header {
+      background-color: #111827;
+      color: white;
+      padding: 15px 30px;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .cart {
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .cart i {
+      margin-right: 8px;
+    }
+
+    main {
+      padding: 40px 20px;
       text-align: center;
     }
+
     h1 {
-      font-size: 2.2rem;
-      color: #00ffff;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #1f2937;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #4b5563;
+    }
+
+    .products {
       margin-top: 40px;
-      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
     }
-    #selector {
-      background: #1a1a1a;
-      border: 2px solid #00ffff;
-      border-radius: 10px;
-      padding: 10px;
-      font-size: 1rem;
-      width: 90%;
-      max-width: 400px;
-      color: #00ffff;
-      margin-bottom: 20px;
+
+    .product {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 250px;
+      transition: transform 0.2s ease;
     }
-    button {
-      background: linear-gradient(90deg, #00ffff, #ff00ff);
-      border: none;
-      padding: 12px 30px;
-      font-size: 1rem;
-      color: #000;
-      font-weight: bold;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-bottom: 20px;
+
+    .product:hover {
+      transform: translateY(-5px);
     }
-    button:hover {
-      background: linear-gradient(90deg, #ff00ff, #00ffff);
-    }
-    #loader {
+
+    .product h3 {
       margin-top: 10px;
-      display: none;
+      font-size: 1.2rem;
+      color: #111827;
     }
-    .loader-bar {
-      width: 80%;
-      max-width: 400px;
-      height: 10px;
-      background: #333;
-      margin: 10px auto;
-      border-radius: 5px;
-      overflow: hidden;
+
+    .product p {
+      color: #6b7280;
+      font-size: 0.95rem;
     }
-    .loader-bar-fill {
-      width: 0;
-      height: 100%;
-      background: linear-gradient(90deg, #00ffff, #ff00ff);
-      animation: load 2s linear forwards;
+
+    .buy-btn {
+      margin-top: 15px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.2s ease;
     }
-    @keyframes load {
-      0% { width: 0; }
-      100% { width: 100%; }
+
+    .buy-btn:hover {
+      background: #1d4ed8;
     }
-    #output {
-      margin-top: 20px;
-      background: #1a1a1a;
-      border: 2px solid #00ffff;
-      border-radius: 10px;
-      padding: 15px;
-      width: 90%;
-      max-width: 400px;
-      height: 300px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      text-align: left;
-      word-break: break-word;
+
+    @media (max-width: 600px) {
+      .products {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>KN UNLOCK</h1>
+  <header>
+    <div class="logo">Dami Store</div>
+    <div class="cart"><i class="fas fa-shopping-cart"></i> Carrito</div>
+  </header>
 
-  <select id="selector">
-    <option value="nova">Nova VPN</option>
-  </select>
+  <main>
+    <h1>Compras de cuentas de streaming</h1>
+    <p class="subtitle">Spotify, Netflix, Disney+, HBO Max y más...</p>
 
-  <button onclick="procesarArchivo()">Procesar</button>
-
-  <div id="loader">
-    <p>Procesando...</p>
-    <div class="loader-bar">
-      <div class="loader-bar-fill"></div>
+    <div class="products">
+      <div class="product">
+        <i class="fab fa-spotify fa-3x" style="color:#1DB954;"></i>
+        <h3>Spotify Premium</h3>
+        <p>Cuenta válida por 1 mes</p>
+        <a href="#" class="buy-btn">Comprar</a>
+      </div>
+      <div class="product">
+        <i class="fab fa-netflix fa-3x" style="color:#e50914;"></i>
+        <h3>Netflix HD</h3>
+        <p>Cuenta para 1 pantalla</p>
+        <a href="#" class="buy-btn">Comprar</a>
+      </div>
+      <div class="product">
+        <i class="fas fa-film fa-3x" style="color:#6366f1;"></i>
+        <h3>Disney+</h3>
+        <p>Plan mensual</p>
+        <a href="#" class="buy-btn">Comprar</a>
+      </div>
     </div>
-  </div>
-
-  <pre id="output"></pre>
-
-  <script>
-    function obtenerLink(app) {
-      switch(app) {
-        case 'nova':
-          return 'https://painelconecta5g.com/update/pasta_vpnbrasil9/config';
-        default:
-          return '';
-      }
-    }
-
-    function procesarArchivo() {
-      const selector = document.getElementById('selector').value;
-      const url = obtenerLink(selector);
-      const loader = document.getElementById('loader');
-      const output = document.getElementById('output');
-
-      if (!url) {
-        alert('Error: No hay URL configurada para esta app.');
-        return;
-      }
-
-      loader.style.display = 'block';
-      output.textContent = '';
-
-      const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
-
-      fetch(proxyUrl)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Error al descargar el archivo.');
-          }
-          return response.json();
-        })
-        .then(data => {
-          loader.style.display = 'none';
-          let contents = data.contents;
-
-          if (contents.startsWith('data:application/octet-stream;base64,')) {
-            const base64data = contents.split(',')[1];
-            const decoded = atob(base64data);
-            output.textContent = decoded;
-          } else {
-            output.textContent = contents;
-          }
-        })
-        .catch(error => {
-          loader.style.display = 'none';
-          output.textContent = 'Ocurrió un error: ' + error.message;
-        });
-    }
-  </script>
+  </main>
 
 </body>
 </html>
