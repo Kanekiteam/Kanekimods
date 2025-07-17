@@ -1,168 +1,208 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dami Store</title>
+  <title>DAMI STORE</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+    :root {
+      --color-principal: #2563eb;
+      --color-secundario: #1f2937;
+      --color-oferta: #dc2626;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #f4f4f5;
+      background: #f9fafb;
       color: #111827;
     }
 
     header {
-      background: #1f2937;
+      background: var(--color-secundario);
       color: white;
-      padding: 20px 40px;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
     .logo {
       font-size: 1.8rem;
       font-weight: bold;
+      letter-spacing: 1px;
     }
 
-    .cart {
-      font-size: 1.5rem;
+    .icons i {
+      margin-left: 15px;
+      font-size: 1.4rem;
       cursor: pointer;
     }
 
     main {
-      max-width: 1200px;
-      margin: 40px auto;
       padding: 20px;
     }
 
-    .product-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      align-items: center;
+    .section-title {
+      font-size: 1.8rem;
+      margin: 20px 0;
+      font-weight: bold;
+      color: var(--color-secundario);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
       background: white;
-      padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-      animation: fadeIn 1s ease;
-    }
-
-    .product-images {
-      flex: 1;
-      min-width: 280px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      padding: 15px;
       text-align: center;
-    }
-
-    .product-images img {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 12px;
       transition: transform 0.3s ease;
     }
 
-    .product-images img:hover {
-      transform: scale(1.05);
+    .product-card:hover {
+      transform: translateY(-5px);
     }
 
-    .product-details {
-      flex: 1;
-      min-width: 280px;
+    .product-card img {
+      width: 100%;
+      max-width: 200px;
+      border-radius: 12px;
     }
 
-    .product-details h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
+    .product-card h3 {
+      font-size: 1.2rem;
+      margin: 10px 0 5px;
     }
 
-    .product-details p {
-      font-size: 1rem;
+    .product-card p {
       color: #4b5563;
-    }
-
-    .price-box {
-      margin-top: 20px;
+      font-size: 0.95rem;
     }
 
     .price-original {
-      font-size: 1.2rem;
-      color: #9ca3af;
       text-decoration: line-through;
+      color: #9ca3af;
+      font-size: 0.9rem;
     }
 
-    .price-discount {
-      font-size: 2rem;
-      color: #10b981;
+    .price-offer {
+      color: var(--color-oferta);
+      font-size: 1.2rem;
       font-weight: bold;
-      margin-left: 10px;
     }
 
-    .buy-btn {
-      margin-top: 25px;
-      padding: 12px 25px;
-      background: #2563eb;
+    .btn {
+      margin-top: 10px;
+      background: var(--color-principal);
       color: white;
-      font-size: 1.1rem;
-      font-weight: bold;
       border: none;
-      border-radius: 10px;
+      padding: 10px 15px;
+      border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s ease;
     }
 
-    .buy-btn:hover {
+    .btn:hover {
       background: #1d4ed8;
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+    /* Detalle producto */
+    .product-detail {
+      display: none;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      animation: fadeIn 0.5s ease-in-out;
     }
 
-    @media (max-width: 768px) {
-      .product-section {
-        flex-direction: column;
-        align-items: center;
-      }
+    .product-detail img {
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+    }
 
-      .product-details {
-        text-align: center;
-      }
+    .product-detail h2 {
+      margin-bottom: 10px;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--color-principal);
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo">Dami Store</div>
-    <div class="cart"><i class="fas fa-shopping-cart"></i></div>
+    <div class="logo">DAMI STORE</div>
+    <div class="icons">
+      <i class="fas fa-search"></i>
+      <i class="fas fa-heart"></i>
+      <i class="fas fa-shopping-cart"></i>
+    </div>
   </header>
 
-  <main>
-    <section class="product-section">
-      <div class="product-images">
-        <img src="https://images.jbl.com/JBL_Tune510BT_ProductImage_Hero_Black.png" alt="JBL Tune 510BT"/>
-      </div>
+  <main id="main-content">
+    <div class="section-title">¡PRODUCTOS DESTACADOS!</div>
 
-      <div class="product-details">
-        <h2>Auriculares JBL Tune 510BT</h2>
-        <p>Sonido JBL Pure Bass | Bluetooth 5.0 | Hasta 40h de batería | Carga rápida</p>
-        <div class="price-box">
-          <span class="price-original">Gs. 287.000</span>
-          <span class="price-discount">Gs. 150.000</span>
-        </div>
-        <button class="buy-btn" onclick="comprarProducto()">Comprar ahora</button>
+    <div class="grid" id="product-list">
+      <div class="product-card" onclick="verDetalleProducto()">
+        <img src="https://raw.githubusercontent.com/Kanekiteam/Kanekimods/refs/heads/main/IMG_20250717_183341.jpg" alt="JBL">
+        <h3>JBL Tune 510BT</h3>
+        <p>Bluetooth | JBL Pure Bass</p>
+        <div class="price-original">Gs. 287.000</div>
+        <div class="price-offer">Gs. 150.000</div>
+        <button class="btn">Ver más</button>
       </div>
-    </section>
+    </div>
   </main>
 
+  <section class="product-detail" id="detalle-producto">
+    <button class="back-btn" onclick="volverInicio()"><i class="fas fa-arrow-left"></i> Volver</button>
+    <img src="https://images.jbl.com/JBL_Tune510BT_ProductImage_Hero_Black.png" alt="JBL Tune 510BT">
+    <h2>JBL Tune 510BT</h2>
+    <p>Sonido JBL Pure Bass | Bluetooth 5.0 | Hasta 40h de batería | Carga rápida | Diseño plegable y ligero.</p>
+    <p class="price-original">Precio normal: Gs. 287.000</p>
+    <p class="price-offer">Oferta por hoy: Gs. 150.000</p>
+    <button class="btn" onclick="comprarWhatsApp()">Comprar por WhatsApp</button>
+  </section>
+
   <script>
-    function comprarProducto() {
-      const mensaje = "Hola! Me gustaría comprar los auriculares JBL Tune 510BT en promoción por Gs. 150.000.";
-      const url = `https://wa.me/595991624843?text=${encodeURIComponent(mensaje)}`;
+    function verDetalleProducto() {
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('detalle-producto').style.display = 'block';
+    }
+
+    function volverInicio() {
+      document.getElementById('main-content').style.display = 'block';
+      document.getElementById('detalle-producto').style.display = 'none';
+    }
+
+    function comprarWhatsApp() {
+      const mensaje = "Hola, quiero comprar el auricular JBL Tune 510BT en oferta por Gs. 150.000.";
+      const url = "https://wa.me/595991624843?text=" + encodeURIComponent(mensaje);
       window.open(url, "_blank");
     }
   </script>
