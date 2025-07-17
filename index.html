@@ -169,7 +169,7 @@
 
     <div class="grid" id="product-list">
       <div class="product-card" onclick="verDetalleProducto()">
-        <img src="https://raw.githubusercontent.com/Kanekiteam/Kanekimods/refs/heads/main/IMG_20250717_183341.jpg" alt="JBL">
+        <img src="https://images.jbl.com/JBL_Tune510BT_ProductImage_Hero_Black.png" alt="JBL">
         <h3>JBL Tune 510BT</h3>
         <p>Bluetooth | JBL Pure Bass</p>
         <div class="price-original">Gs. 287.000</div>
@@ -180,14 +180,22 @@
   </main>
 
   <section class="product-detail" id="detalle-producto">
-    <button class="back-btn" onclick="volverInicio()"><i class="fas fa-arrow-left"></i> Volver</button>
-    <img src="https://images.jbl.com/JBL_Tune510BT_ProductImage_Hero_Black.png" alt="JBL Tune 510BT">
-    <h2>JBL Tune 510BT</h2>
-    <p>Sonido JBL Pure Bass | Bluetooth 5.0 | Hasta 40h de batería | Carga rápida | Diseño plegable y ligero.</p>
-    <p class="price-original">Precio normal: Gs. 287.000</p>
-    <p class="price-offer">Oferta por hoy: Gs. 150.000</p>
-    <button class="btn" onclick="comprarWhatsApp()">Comprar por WhatsApp</button>
-  </section>
+  <button class="back-btn" onclick="volverInicio()"><i class="fas fa-arrow-left"></i> Volver</button>
+
+  <div class="slider">
+    <div class="slides">
+      <img src="https://raw.githubusercontent.com/Kanekiteam/Kanekimods/refs/heads/main/IMG_20250717_183341.jpg" class="slide active">
+      <img src="https://via.placeholder.com/400x300?text=Imagen+2" class="slide">
+      <img src="https://via.placeholder.com/400x300?text=Imagen+3" class="slide">
+    </div>
+  </div>
+
+  <h2>JBL Tune 510BT</h2>
+  <p>Sonido JBL Pure Bass | Bluetooth 5.0 | Hasta 40h de batería | Carga rápida | Diseño plegable y ligero.</p>
+  <p class="price-original">Precio normal: Gs. 287.000</p>
+  <p class="price-offer">Oferta por hoy: Gs. 150.000</p>
+  <button class="btn" onclick="comprarWhatsApp()">Comprar por WhatsApp</button>
+</section>
 
   <script>
     function verDetalleProducto() {
