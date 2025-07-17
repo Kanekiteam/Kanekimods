@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -117,12 +118,6 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       animation: fadeIn 0.5s ease-in-out;
     }
-    .product-detail img {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 15px;
-      margin-bottom: 15px;
-    }
     .product-detail h2 {
       margin-bottom: 10px;
     }
@@ -134,16 +129,62 @@
       cursor: pointer;
       margin-bottom: 10px;
     }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
     footer {
       text-align: center;
       padding: 15px;
       background: var(--color-secundario);
       color: white;
       font-size: 0.95rem;
+    }
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      margin: 20px auto;
+      max-width: 500px;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+    .carousel-track img {
+      min-width: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+    .glass-info {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .glass-text {
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    .glass-text p {
+      margin-bottom: 15px;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
@@ -171,27 +212,28 @@
   </main>
   <section class="product-detail" id="detalle-producto">
     <button class="back-btn" onclick="volverInicio()"><i class="fas fa-arrow-left"></i> Volver</button>
-    <div class="slider">
-      <div class="slides">
-        <img src="https://raw.githubusercontent.com/Kanekiteam/Kanekimods/refs/heads/main/IMG_20250717_183341.jpg" class="slide active">
+    <div class="carousel-container">
+      <button class="carousel-btn prev" onclick="moverCarrusel(-1)"><i class="fas fa-chevron-left"></i></button>
+      <div class="carousel-track" id="carousel-track">
+        <img src="https://raw.githubusercontent.com/Kanekiteam/Kanekimods/refs/heads/main/IMG_20250717_183341.jpg" class="slide">
         <img src="https://raw.githubusercontent.com/Kanekiteam/Kanekimods/refs/heads/main/IMG_20250717_184449.jpg" class="slide">
       </div>
+      <button class="carousel-btn next" onclick="moverCarrusel(1)"><i class="fas fa-chevron-right"></i></button>
     </div>
-    <h2>JBL Tune 510BT</h2>
-    <p>
-      🎧 Auriculares JBL Tune 510BT Bluetooth 5.0<br>
-      🔥 ¡Sonido potente, sin cables y con estilo!<br><br>
-      ✅ Bluetooth 5.0 – conexión rápida y estable<br>
-      ✅ Sonido JBL Pure Bass – graves potentes 🎶<br>
-      ✅ Micrófono y botón multifunción – llamadas manos libres 📞<br>
-      ✅ Batería de 40 hs – y carga rápida: 5 min = 2 hs 🔋⚡<br>
-      ✅ Diseño cómodo y plegable para llevar a todos lados 🎒<br><br>
-      📦 Producto nuevo / En stock<br>
-      📍 Entrega en el día / Envíos a todo el país
-    </p>
-    <p class="price-original">Precio normal: Gs. 287.000</p>
-    <p class="price-offer">Oferta por hoy: Gs. 150.000</p>
-    <button class="btn" onclick="comprarWhatsApp()">Comprar por WhatsApp</button>
+    <div class="glass-info">
+      <h2>JBL Tune 510BT</h2>
+      <div class="glass-text">
+        <p>🎧 <strong>Bluetooth 5.0</strong> – conexión rápida y estable<br>
+        🎶 <strong>JBL Pure Bass</strong> – graves potentes<br>
+        📞 Micrófono y botón multifunción para llamadas manos libres<br>
+        🔋 40 hs de batería + carga rápida (5 min = 2 hs)<br>
+        🎒 Diseño plegable, cómodo para llevar<br>
+        📦 Producto nuevo | 🚚 Entrega en el día</p>
+        <p class="price-original">Precio normal: Gs. 287.000</p>
+        <p class="price-offer">Oferta: Gs. 150.000</p>
+        <button class="btn" onclick="comprarWhatsApp()">Comprar por WhatsApp</button>
+      </div>
+    </div>
   </section>
   <footer>
     &copy; DAMI STORE 2025. Todos los derechos reservados.
@@ -209,6 +251,16 @@
       const mensaje = "Hola, quiero comprar el auricular JBL Tune 510BT en oferta por Gs. 150.000.";
       const url = "https://wa.me/595991624843?text=" + encodeURIComponent(mensaje);
       window.open(url, "_blank");
+    }
+    let posicion = 0;
+    function moverCarrusel(direccion) {
+      const track = document.getElementById('carousel-track');
+      const slides = document.querySelectorAll('.carousel-track .slide');
+      const total = slides.length;
+      posicion += direccion;
+      if (posicion < 0) posicion = total - 1;
+      if (posicion >= total) posicion = 0;
+      track.style.transform = `translateX(-${posicion * 100}%)`;
     }
   </script>
 </body>
